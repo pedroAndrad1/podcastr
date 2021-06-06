@@ -1,6 +1,7 @@
 .wrapper{
+   /*  display: grid;
+    grid-template-columns: 1fr minmax(auto, 30%); */
     display: flex;
-
     main{
         flex: 1;
     }

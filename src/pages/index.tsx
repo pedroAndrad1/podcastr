@@ -1,30 +1,128 @@
 import Head from 'next/head';
+import { GetStaticProps } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { api } from '../services/api';
 
-export default function Home({ episodes }) {
+import { Episode } from '../models/Episode';
+import EpisodeFactory from '../utils/factories/EpisodeFactory';
+import styles from '../styles/home.module.scss';
+
+interface HomeProps {
+  latestEpisodes: Episode[];
+  allEpisodes: Episode[];
+}
+
+//IMPLEMENTAR UM INFINITE SCROLL OU PAGINACAO MAIS TARDE
+export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
   return (
-    <>
-      <h1>
-        INDEX
-      </h1>
-      <p>{JSON.stringify(episodes)}</p>
-    </>
+    <div className={styles.homeContainer}>
+      <section className={styles.latestEpisodes}>
+        <h2>Últimos lançamentos</h2>
+        <ul>
+          {
+            latestEpisodes.map((episode) => {
+              return (
+                <li key={episode.id}>
+                  {/**Image do next é util para otimizar imagens */}
+                  <Image
+                    height={192}
+                    width={192}
+                    src={episode.thumbnail}
+                    alt={episode.title}
+                    objectFit='cover'
+                  />
+                  <div className={styles.episodeDetails}>
+                    <a>{episode.title}</a>
+                    <p>{episode.members}</p>
+                    <span>{episode.publishedAt}</span>
+                    <span>{episode.durationAsString}</span>
+                  </div>
+
+                  <button type='button'>
+                    <img src='/play-green.svg' alt='Tocar episódio' />
+                  </button>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </section>
+      <section className={styles.allEpisodes}>
+        <h2>Todos episódios</h2>
+
+        <table cellSpacing={0}>
+          <thead>
+            <tr>
+              <th>Podcast</th>
+              <th>Integrantes</th>
+              <th>Data</th>
+              <th>Duração</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {allEpisodes.map((episode, index) => {
+              return (
+                <tr key={episode.id}>
+                  <td>
+                    <Link href={`/episodes/${episode.id}`}><a >{episode.title}</a></Link>
+                  </td>
+                  <td>{episode.members}</td>
+                  <td style={{ width: '100px' }}>{episode.publishedAt}</td>
+                  <td>{episode.durationAsString}</td>
+                  <td>
+                    <button type="button">
+                      <img src="/play-green.svg" alt="Tocar episódio" />
+                    </button>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </section>
+    </div>
   )
 }
 
-//Gera uma versao estatica da page, atualizadad periodicamente.
+//Gera uma versao estatica da page, atualizada periodicamente.
 //Isso melhora muito a performance e util para pages que demoram para mudar
 //Evitando requisicoes desnecessarias
 //Doc: https://nextjs.org/docs/basic-features/pages#static-generation-recommended
-export async function getStaticProps() {
-  const response = await fetch('http://localhost:3333/episodes');
-  const data = await response.json();
+export const getStaticProps: GetStaticProps = async () => {
+
+  const { data } = await api.get('episodes', {
+    params: {
+      _limit: 12,
+      _sort: 'published_at',
+      _order: 'desc'
+    }
+  });
+
+  const episodes: Array<Episode> = data.map(episode => {
+    return EpisodeFactory(
+      episode.id,
+      episode.title,
+      episode.members,
+      episode.thumbnail,
+      episode.published_at,
+      episode.file.duration,
+      episode.file.url,
+      episode.description
+    )
+  })
+
+  const latestEpisodes = episodes.slice(0, 2);
+  const allEpisodes = episodes.slice(2, episodes.length);
 
   return {
     props: {
-      episodes: data,
+      latestEpisodes,
+      allEpisodes
     },
     //Aqui coloco de o periodo em que ocorre a atualizacao da pages
-    revalidate: 60 * 60 * 8, 
+    revalidate: 60 * 60 * 8, //8 horas
   }
 
 }
