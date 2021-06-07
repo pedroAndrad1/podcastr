@@ -54,13 +54,34 @@ export default function EpisodePage({ episode }: EpisodeProps) {
     )
 }
 //Para ser possivel pegar os parametros da rota em um pagina estatica
+//Estas paginas sera criadas no build app e atualizadas periodicamente
 //Doc: https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
 export const getStaticPaths: GetStaticPaths = async () => {
-    const paths = []
+    //Em um caso real, nao seria viavel fazer todos os episodios do podcast serem gerados de forma
+    //estatica. Por isso, serao gerados de forma estatica apenas os dois ultimos. Ja que, possivelemente,
+    //serao aqueles com mais acesso.
+    const { data } = await api.get('episodes', {
+        params: {
+          _limit: 2,
+          _sort: 'published_at',
+          _order: 'desc'
+        }
+      });
 
+    //um objeto para cada path
+    const paths = data.map(episode =>{
+        return{
+            params:{
+                id: episode.id
+            }
+        }
+    })
     return {
         paths,
-        fallback: 'blocking'
+        //Caso o path da pagina estatica nao tenha sido passada no parametro acima,
+        //sera feito uma requisicao como se essa pagina nao fosse estatica
+        //Caso fosse false, daria 404. Caso fosse true, a requisicao seria feita pelo front-end
+        fallback: 'blocking' 
     }
 }
 
