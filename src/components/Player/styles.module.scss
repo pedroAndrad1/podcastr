@@ -15,6 +15,7 @@
         display: flex;
         align-items: center;
         gap: 1rem;
+        margin-bottom: 1rem;
     }
 
     strong{
@@ -121,6 +122,8 @@
   
     img {
       border-radius: 1.5rem;
+      height: 80%;
+      width: 80%;
     }
   
     strong {
@@ -128,6 +131,7 @@
       margin-top: 2rem;
       font: 600 1.25rem Lexend, sans-serif;
       line-height: 1.75rem;
+      font-size: 1rem;
     }
   
     span {
