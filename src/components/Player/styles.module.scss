@@ -57,6 +57,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media(max-width: 800px){
+        display: none;
+    }
+
 }
 
 .progress{
@@ -80,6 +85,10 @@
             background: var(--purple-300);
             border-radius: 2px;
         }
+    }
+
+    @media(max-width: 800px){
+        margin-top: 1rem;
     }
 }
 
@@ -160,7 +169,6 @@
 
        strong{
             margin-top: 1rem;
-            margin-bottom: 1rem;
        }
     }
 }
