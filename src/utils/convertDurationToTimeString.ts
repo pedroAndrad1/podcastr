@@ -1,7 +1,7 @@
 export default function convertDurationToTimeString(duration: number){
-    const hours = Math.floor(duration / 3600)
-    const minutes = Math.floor(hours / 60);
-    const seconds = duration % 60;
+  const hours = Math.floor(duration / 3600)
+  const minutes = Math.floor((duration % 3600) / 60);
+  const seconds = duration % 60;
     
     //Caso um dos itens nao tenha dois numeros, ira adicionar um 0 a esquerda. Ex: 1 => 01
     const timeString = [hours, minutes, seconds]

@@ -16,10 +16,10 @@ export default function EpisodePage({ episode }: EpisodeProps) {
 
     return (
         <div className={styles.container}>
+            <Head>
+                <title>{episode.title} | Podcastr</title>
+            </Head>
             <div className={styles.episode}>
-                <Head>
-                    <title>{episode.title} | Podcastr</title>
-                </Head>
 
                 <div className={styles.thumbnailContainer}>
                     <Link href="/">
@@ -62,16 +62,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
     //serao aqueles com mais acesso.
     const { data } = await api.get('episodes', {
         params: {
-          _limit: 2,
-          _sort: 'published_at',
-          _order: 'desc'
+            _limit: 2,
+            _sort: 'published_at',
+            _order: 'desc'
         }
-      });
+    });
 
     //um objeto para cada path
-    const paths = data.map(episode =>{
-        return{
-            params:{
+    const paths = data.map(episode => {
+        return {
+            params: {
                 id: episode.id
             }
         }
@@ -81,7 +81,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         //Caso o path da pagina estatica nao tenha sido passada no parametro acima,
         //sera feito uma requisicao como se essa pagina nao fosse estatica
         //Caso fosse false, daria 404. Caso fosse true, a requisicao seria feita pelo front-end
-        fallback: 'blocking' 
+        fallback: 'blocking'
     }
 }
 
