@@ -18,5 +18,21 @@
         margin-left: auto;
         text-transform: capitalize;
     }
+
+    @media(max-width: 800px){
+        flex-direction: column;
+        padding: 1rem 2rem;
+
+        p{
+            border: none;
+            margin: 0.25rem 0;
+            white-space: nowrap;
+            padding: 0.25rem;
+        }
+
+        span{
+            display: none;
+        }
+    }
 }
 
