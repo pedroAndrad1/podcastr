@@ -8,9 +8,9 @@
       margin-bottom: 1.5rem;
     }
 
-   /*  @media(max-width: 800px){
-      overflow-y: auto;
-    } */
+   @media(max-width: 800px){
+      padding: 0 1.5rem;
+    }
 }
   
 .latestEpisodes {
@@ -194,6 +194,26 @@
 
         &:hover {
           filter: brightness(0.95);
+        }
+      }
+    }
+  }
+
+  @media(max-width: 800px){
+    .responsiveColumns{
+      display: none;
+    }
+
+    table{
+      td{
+        button{
+          width: 3rem;
+          height: 3rem;
+          
+          img{
+            width: 1.5rem;
+            height: 1.5rem;
+          }
         }
       }
     }

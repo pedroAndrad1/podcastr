@@ -66,8 +66,8 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
           <thead>
             <tr>
               <th>Podcast</th>
-              <th>Integrantes</th>
-              <th>Data</th>
+              <th className={styles.responsiveColumns}>Integrantes</th>
+              <th className={styles.responsiveColumns}>Data</th>
               <th>Duração</th>
               <th></th>
             </tr>
@@ -79,8 +79,10 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <td>
                     <Link href={`/episodes/${episode.id}`}><a>{episode.title}</a></Link>
                   </td>
-                  <td>{episode.members}</td>
-                  <td style={{ width: '100px' }}>{episode.publishedAt}</td>
+                  <td className={styles.responsiveColumns}>{episode.members}</td>
+                  <td style={{ width: '100px' }} className={styles.responsiveColumns}>
+                    {episode.publishedAt}
+                  </td>
                   <td>{episode.durationAsString}</td>
                   <td>
                     {/**o index ndo map nao bate com o index do ep no array. Pra resolver isso,
