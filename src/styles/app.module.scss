@@ -5,4 +5,15 @@
     main{
         flex: 1;
     }
+
+    @media(max-width: 800px){
+             display: flex;
+             flex-direction: column ;
+    
+             main{
+                 flex: 1;
+             }
+    }
 }
+
+

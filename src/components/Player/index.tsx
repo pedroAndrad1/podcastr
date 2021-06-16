@@ -71,6 +71,7 @@ export default function Player() {
                         height={592}
                         src={episode.thumbnail}
                         objectFit="cover"
+                        className={styles.episodeBanner}
                     />
                     <strong>{episode.title}</strong>
                     <span>{episode.members}</span>

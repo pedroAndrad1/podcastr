@@ -1,36 +1,48 @@
 .playerContainer{
+    
     padding: 3rem 4rem;
     max-width: 30%;
     height: 100vh;
-
+    
     background: var(--purple-500);
     color: var(--white);
-
+    
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-
+    
     header{
         display: flex;
         align-items: center;
         gap: 1rem;
         margin-bottom: 1rem;
     }
-
+    
     strong{
         font-family: Lexend, sans-serif;
         font-weight: 600;
     }
-
+    
     footer{
         align-self: stretch;
-
+        
         &.empty{
             opacity: 0.5;
         }
     }
+    
+    @media(max-width: 800px){
+        height: auto;
+        max-width: 100vw;
+        padding: 1rem 1rem;
+
+        header{
+            display: none;
+        }
+    }
 }
+
 
 .emptyPlayer{
     width: 100%;
@@ -140,4 +152,15 @@
       opacity: 0.6;
       line-height: 1.5rem;
     }
-  }
+
+    @media(max-width: 800px){
+       img, span{
+            display: none !important;
+       }
+
+       strong{
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+       }
+    }
+}
