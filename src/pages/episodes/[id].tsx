@@ -6,6 +6,7 @@ import { api } from '../../services/api';
 import EpisodeFactory from '../../utils/factories/EpisodeFactory';
 import { Episode } from '../../models/Episode';
 import styles from '../../styles/episodes.module.scss';
+import { usePlayer } from '../../contexts/PlayerContext';
 
 interface EpisodeProps {
     episode: Episode
@@ -13,6 +14,7 @@ interface EpisodeProps {
 
 export default function EpisodePage({ episode }: EpisodeProps) {
 
+    const {play} = usePlayer();
 
     return (
         <div className={styles.container}>
@@ -33,7 +35,7 @@ export default function EpisodePage({ episode }: EpisodeProps) {
                         src={episode.thumbnail}
                         objectFit="cover"
                     />
-                    <button type="button">
+                    <button type="button" onClick={() => play(episode)}>
                         <img src="/play.svg" alt="Tocar episódio" />
                     </button>
                 </div>
