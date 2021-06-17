@@ -5,6 +5,9 @@
   }
   
   :root {
+    --background: #FFF;
+    --latestEpisodesText: #494D4B;
+    --tableDivider: #E6E8EB;
     --white: #FFF;
   
     --gray-50: #F7F8FA;
@@ -21,6 +24,27 @@
     --purple-800: #6F48C9;
   }
   
+  [data-theme='dark'] {
+    --background: #494D4B;
+    --latestEpisodesText: #E6E8EB;
+    --tableDivider: #FFF;
+    --white: #808080;
+  
+    --gray-50: #F7F8FA;
+    --gray-100: #494D4B;
+    --gray-200: #AFB2B1;
+    --gray-500: #F7F8FA;
+    --gray-800: #E6E8EB;
+  
+    --green-500: #04D361;
+    
+    --purple-300: #6F48C9;
+    --purple-400: #9164FA; 
+    --purple-500: #483C67;
+    
+    --purple-800: #6F48C9;
+  }
+
   @media (max-width: 1080px) {
     html {
       font-size: 93.75%; // 15px
